@@ -167,6 +167,11 @@ text { font-family: 'Source Code Pro', monospace; }
 .eq-content { flex: 1; text-align: center; letter-spacing: .03em; }
 .eq-content sub { font-size: .62em; vertical-align: sub; }
 .eq-content sup { font-size: .62em; vertical-align: super; }
+.eq-block.struck .eq-content {
+  text-decoration: line-through;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+}
 .frac { display: inline-block; text-align: center; vertical-align: middle; }
 .frac .num, .frac .den { display: block; }
 .frac .num { border-bottom: 1px solid var(--ink); padding: 0 4px; }
@@ -656,7 +661,7 @@ text { font-family: 'Source Code Pro', monospace; }
 
   <p class="body-text">The lateral expansion factor <i>Φ</i> of a QEN-3–doped chain can be described by the modified Krüger–Benedetti relation (Eq. 1), which accounts for nodule density <i>ρ<sub>QEN</sub></i>, photon flux <i>Φ<sub>hν</sub></i>, and the empirically-derived activation constant <i>κ</i>:</p>
 
-  <div class="eq-block">
+  <div class="eq-block struck">
     <span class="eq-content">
       Φ = 1 +  κ · ρ<sub>QEN</sub> · <span class="frac"><span class="num">Φ<sub>hν</sub> · t</span><span class="den">E<sub>bind</sub><sup>½</sup></span></span>  ·  e<sup>−λ/T</sup>
     </span>

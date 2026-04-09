@@ -570,6 +570,7 @@
       line-height: 1.55;
     }
     .paper-toggle {
+      display: inline-block;
       border: 1px solid var(--black);
       background: #fff;
       color: var(--black);
@@ -579,6 +580,7 @@
       text-transform: uppercase;
       padding: 8px 12px;
       cursor: pointer;
+      text-decoration: none;
     }
     .paper-toggle:hover,
     .paper-toggle:focus-visible {
@@ -1056,24 +1058,9 @@
         <div class="related-item">Bread Loaf That Expands Into a Full Baguette Wins Nobel Prize for Physics</div>
       </div>
 
-      <section class="paper-dossier" aria-labelledby="paperDossierTitle">
-        <h3 id="paperDossierTitle">Scientific Paper </h3>
-        <p>Thesis paper: <strong>Microwave-Induced Lateral Expansion of Quantum Nodule-Enhanced Polymer Lattices</strong>, authored by V. Kruger et al. (ZIAMG, 2044)</p>
-        <button class="paper-toggle" id="togglePaperPanel" aria-expanded="false" aria-controls="paperPanel">Open Paper Abstract &amp; References</button>
-        <div class="paper-panel" id="paperPanel">
-          <div class="paper-panel-inner">
-            <h4>Abstract Snapshot</h4>
-            <p>The paper reports a reproducible doubling of dough lattice diameter under 2.45 GHz irradiation using third-generation Quantum Expansion Nodules (QEN-3), with measured expansion factor Phi = 2.00 +/- 0.003 at 45 seconds (n=412).</p>
-            <h4>Selected References</h4>
-            <ol class="ref-list">
-              <li>Kruger, V., Benedetti, A. (2044). Microwave-Induced Lateral Expansion of Quantum Nodule-Enhanced Polymer Lattices. Journal of Applied Molecular Gastronomy, 14(3), 201-233. DOI: 10.1039/JAMG-2044-0031147.</li>
-              <li>Okonkwo, L. T., Marchand, F., et al. (2043). Cryo-electron tomography constraints for hydrated QEN matrices. Nature FoodMatter, 7, 317-329.</li>
-              <li>Benedetti, A., Kruger, V. (2044). Isotropic versus anisotropic QEN activation in laminated dough systems. Journal of Applied Molecular Gastronomy, 14(1), 12-19.</li>
-              <li>ZIAMG Safety Board (2043). Lyon Incident Technical Audit: Power calibration limits in consumer microwave chambers. ISR-2043-04.</li>
-            </ol>
-          </div>
-        </div>
-      </section>
+      <div class="sidebar-box">
+        <h3><a class="paper-toggle" href="ziamg-thesis-schematics.html" target="_blank" rel="noopener noreferrer">Microwave-Induced Lateral Expansion of Quantum Nodule-Enhanced Polymer Lattices scientific paper</a></h3>
+      </div>
 
     </aside>
 
@@ -1148,8 +1135,6 @@
   (function () {
     const popup = document.getElementById('ubereatsPopup');
     const closeBtn = document.getElementById('closeUbereatsPopup');
-    const togglePaperPanel = document.getElementById('togglePaperPanel');
-    const paperPanel = document.getElementById('paperPanel');
     const revealItems = document.querySelectorAll('.reveal');
     const barFills = document.querySelectorAll('.bar-fill[data-width]');
 
@@ -1182,14 +1167,6 @@
         closePopup();
       }
     });
-
-    if (togglePaperPanel && paperPanel) {
-      togglePaperPanel.addEventListener('click', function () {
-        const isOpen = paperPanel.classList.toggle('visible');
-        togglePaperPanel.setAttribute('aria-expanded', String(isOpen));
-        togglePaperPanel.textContent = isOpen ? 'Hide Paper Abstract & References' : 'Open Paper Abstract & References';
-      });
-    }
 
     const revealObserver = new IntersectionObserver(function (entries, observer) {
       entries.forEach(function (entry) {
