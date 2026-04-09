@@ -24,6 +24,20 @@
       font-family: 'Source Serif 4', Georgia, serif;
       font-size: 16px;
       line-height: 1.55;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(95, 66, 45, 0.1), transparent 34%),
+        radial-gradient(circle at 86% 8%, rgba(139, 0, 0, 0.08), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(80, 60, 42, 0.08), transparent 36%),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 1px, transparent 1px, transparent 4px);
     }
 
     /* ── TOP UTILITY BAR ── */
@@ -139,6 +153,16 @@
       padding-bottom: 14px;
     }
 
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .label {
       font-family: 'Source Serif 4', serif;
       font-size: 10px;
@@ -201,14 +225,89 @@
       align-items: center;
       gap: 8px;
     }
-    .pizza-emoji-wrap {
+    .pizza-schema {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: var(--disc-size, 120px);
+      height: var(--disc-size, 120px);
+      border-radius: 50%;
+      border: 2px solid #7c3a1f;
+      background: radial-gradient(circle at 30% 30%, #f4c27a 0%, #d98243 48%, #9f4f28 100%);
+      box-shadow: inset 0 0 0 2px rgba(255, 228, 165, .35), inset 0 0 16px rgba(80, 30, 10, .35);
+      display: grid;
+      place-items: center;
+      isolation: isolate;
     }
-    .pizza-sm { font-size: 70px; }
-    .pizza-lg { font-size: 140px; animation: pulsePizza 3s ease-in-out infinite; }
+    .pizza-schema::before {
+      content: '';
+      position: absolute;
+      inset: 6%;
+      border-radius: 50%;
+      border: 1px dashed rgba(60, 20, 10, .4);
+      z-index: -1;
+    }
+    .pizza-schema::after {
+      content: '';
+      position: absolute;
+      inset: 14%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, rgba(255, 230, 172, .6), rgba(255, 230, 172, 0));
+      opacity: .8;
+    }
+    .disc-grid {
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px solid rgba(60, 20, 10, .22);
+      background: repeating-radial-gradient(circle, transparent 0 12px, rgba(90, 35, 18, .1) 12px 13px);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .diameter-line {
+      position: absolute;
+      width: 82%;
+      height: 1.5px;
+      background: #3b1f15;
+      top: 50%;
+      left: 9%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 1px rgba(245, 230, 190, .25);
+    }
+    .diameter-line::before,
+    .diameter-line::after {
+      content: '';
+      position: absolute;
+      width: 1.5px;
+      height: 10px;
+      top: -4px;
+      background: #3b1f15;
+    }
+    .diameter-line::before { left: 0; }
+    .diameter-line::after { right: 0; }
+    .diameter-label {
+      position: absolute;
+      bottom: 8%;
+      font-size: 10px;
+      letter-spacing: .06em;
+      font-family: 'Source Serif 4', serif;
+      color: #3b1f15;
+      text-transform: uppercase;
+      background: rgba(250, 247, 242, .68);
+      border: 1px solid rgba(59, 31, 21, .24);
+      padding: 1px 6px;
+    }
+    .pizza-sm { --disc-size: 112px; }
+    .pizza-lg {
+      --disc-size: 188px;
+      animation: pulsePizza 3.4s ease-in-out infinite;
+    }
+    .pizza-lg .disc-grid {
+      animation: schematicSpin 18s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes schematicSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
     @keyframes pulsePizza {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.06); }
@@ -221,7 +320,6 @@
       color: var(--mid);
     }
     .arrow-wrap {
-      font-size: 36px;
       color: var(--accent);
       display: flex;
       flex-direction: column;
@@ -229,10 +327,37 @@
       gap: 4px;
     }
     .arrow-wrap span { font-size: 10px; font-family: 'Source Serif 4', serif; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-
-    .microwave-icon {
-      font-size: 48px;
-      margin: 0 8px;
+    .field-badge {
+      border: 1px solid var(--black);
+      background: #efe4d6;
+      color: var(--black);
+      font-family: 'Source Serif 4', serif;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+    }
+    .expansion-ratio {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .size-arrow {
+      width: 72px;
+      border-top: 2px solid var(--accent);
+      position: relative;
+      margin-top: 6px;
+    }
+    .size-arrow::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      top: -5px;
+      border-left: 8px solid var(--accent);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
     }
 
     .caption {
@@ -386,6 +511,108 @@
     .science-box p { font-size: 14px; line-height: 1.6; margin-bottom: 10px; color: #ddd; }
     .science-box p:last-child { margin-bottom: 0; }
     .science-box strong { color: #f0c060; }
+
+    .video-feature {
+      border: 1px solid var(--black);
+      background: #f2ebdf;
+      padding: 18px;
+      margin: 22px 0;
+    }
+    .video-feature h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+    .video-feature p {
+      font-size: 13px;
+      color: var(--mid);
+      margin-bottom: 12px;
+      letter-spacing: .01em;
+    }
+    .video-frame {
+      border: 1px solid var(--black);
+      background: #060606;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .video-note {
+      margin-top: 9px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #74685a;
+    }
+
+    .paper-dossier {
+      border: 1px solid var(--black);
+      background: linear-gradient(180deg, #f3ede3, #ece2d2);
+      padding: 16px 18px;
+      margin: 22px 0 28px;
+    }
+    .paper-dossier h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+    .paper-dossier p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 10px;
+      line-height: 1.55;
+    }
+    .paper-toggle {
+      border: 1px solid var(--black);
+      background: #fff;
+      color: var(--black);
+      font-family: 'Source Serif 4', serif;
+      font-size: 11.5px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .paper-toggle:hover,
+    .paper-toggle:focus-visible {
+      background: var(--black);
+      color: #fff;
+    }
+    .paper-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .55s ease;
+      border-top: 1px dashed #9a8e7f;
+      margin-top: 10px;
+    }
+    .paper-panel.visible {
+      max-height: 420px;
+    }
+    .paper-panel-inner {
+      padding-top: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2a2a2a;
+    }
+    .paper-panel-inner h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      margin-bottom: 6px;
+      margin-top: 6px;
+    }
+    .ref-list {
+      list-style: decimal;
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+    .ref-list li { margin-bottom: 4px; }
 
     /* ── CHART / INFOGRAPHIC ── */
     .infographic {
@@ -594,6 +821,8 @@
       .sidebar { grid-column: 1; border-left: none; padding-left: 0; border-top: 1px solid var(--black); padding-top: 20px; }
       .columns-2 { grid-template-columns: 1fr; }
       .col-rule { border-left: none; padding-left: 0; border-top: 1px solid var(--black); padding-top: 18px; }
+      .pizza-lg { --disc-size: 150px; }
+      .pizza-sm { --disc-size: 94px; }
     }
 
     /* small decorative ornament */
@@ -626,6 +855,22 @@
     }
     .related-item:last-child { border-bottom: none; margin-bottom: 0; }
     .related-item:hover { text-decoration: underline; }
+
+    .sidebar-box,
+    .related-box,
+    .science-box,
+    .paper-dossier,
+    .video-feature {
+      transition: box-shadow .26s ease, transform .26s ease;
+    }
+    .sidebar-box:hover,
+    .related-box:hover,
+    .science-box:hover,
+    .paper-dossier:hover,
+    .video-feature:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+    }
 
     /* Animated microwave beam */
     @keyframes beam {
@@ -690,7 +935,7 @@
   <div class="hero">
 
     <!-- HEADLINE BLOCK (full-width) -->
-    <div class="hero-center">
+    <div class="hero-center reveal">
       <div class="label">Science &amp; Food Technology</div>
       <h1 class="headline">Pizza That <em>Doubles in Size</em> in the Microwave<br>Is Not Science Fiction Anymore</h1>
       <p class="deck">A breakthrough in quantum-molecular gastronomy — developed in a Geneva laboratory powered exclusively by pizza smell — promises to feed twice as many people for half the effort.</p>
@@ -699,15 +944,19 @@
     </div>
 
     <!-- PIZZA VISUAL (full-width) -->
-    <div class="pizza-visual">
+    <div class="pizza-visual reveal">
       <div class="pizza-container">
         <div class="pizza-before">
-          <div class="pizza-emoji-wrap"><span class="pizza-sm">🍕</span></div>
+          <div class="pizza-schema pizza-sm" aria-label="Initial pizza diameter schema">
+            <div class="disc-grid" aria-hidden="true"></div>
+            <div class="diameter-line" aria-hidden="true"></div>
+            <div class="diameter-label">D0 = 20 cm</div>
+          </div>
           <div class="pizza-label">Before (8&quot; / 20cm)</div>
         </div>
 
         <div class="arrow-wrap">
-          <div class="microwave-icon">📡</div>
+          <div class="field-badge">2.45 GHz Field</div>
           <div style="display:flex;flex-direction:column;gap:2px;">
             <div class="beam" style="--d:0s"></div>
             <div class="beam" style="--d:.3s"></div>
@@ -716,19 +965,24 @@
             <div class="beam" style="--d:1.2s"></div>
           </div>
           <span>45 sec</span>
-          ➡️
+          <div class="size-arrow" aria-hidden="true"></div>
+          <div class="expansion-ratio">Expansion ratio x2.00</div>
         </div>
 
         <div class="pizza-after">
-          <div class="pizza-emoji-wrap"><span class="pizza-lg">🍕</span></div>
+          <div class="pizza-schema pizza-lg" aria-label="Expanded pizza diameter schema">
+            <div class="disc-grid" aria-hidden="true"></div>
+            <div class="diameter-line" aria-hidden="true"></div>
+            <div class="diameter-label">D1 = 40 cm</div>
+          </div>
           <div class="pizza-label">After (16&quot; / 40cm)</div>
         </div>
       </div>
-      <div class="caption"><em>Left: the pizza as shipped, a modest 8-inch disc. Right: the same pizza 45 seconds later. Scientists describe the visual as "legitimately unsettling, but delicious."</em></div>
+      <div class="caption"><em>Diameter schema replacing emoji icons: left shows baseline radius and right shows measured post-activation radius. Antique newsroom graphics, modern experimental notation.</em></div>
     </div>
 
     <!-- ARTICLE BODY -->
-    <div class="article-body">
+    <div class="article-body reveal">
 
       <p>FUTURE YORK — In what researchers at the <strong>Zurich Institute of Applied Molecular Gastronomy (ZIAMG)</strong> are calling "the most important food event since fire," a team of physicists, chefs, and one very enthusiastic janitor named François have unveiled <strong>Pop Up Pizza™</strong> — a frozen pizza engineered at the subatomic level to double in surface area when exposed to standard 2.45 GHz microwave radiation.</p>
 
@@ -755,7 +1009,7 @@
     </div>
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar reveal">
 
       <div class="sidebar-box">
         <h3>🌟 Notable Reactions</h3>
@@ -807,12 +1061,43 @@
   </div>
 
   <!-- SCIENCE BOX -->
-  <div class="science-box">
+  <div class="science-box reveal">
     <h3>📐 The Science: How Quantum Molecular Expansion Actually Works (We Think)</h3>
     <p>Standard microwave ovens work by emitting electromagnetic radiation at <strong>2.45 GHz</strong>, which causes water molecules within food to rotate rapidly, generating heat through friction. Pop Up Pizza™ exploits this principle at a deeper level using <strong>third-generation Quantum Expansion Nodules (QEN-3)</strong>.</p>
     <p>Each QEN-3 is a nano-scale polymer lattice — roughly 80 nanometres in diameter, or approximately the size of human ambition — impregnated with <strong>thermoreactive gluten-mimetic chains</strong>. At room temperature, these chains remain tightly coiled in a low-energy state, which scientists have named the "Pre-Greatness Configuration." Upon microwave exposure, absorbed photon energy breaks a proprietary internal hydrogen bond (U.S. Patent Pending #FP-20441107) triggering an <strong>irreversible lateral thermodynamic cascade</strong>: each chain extends by a factor of 2.00x (±0.003x), pushing adjacent dough cells outward and causing uniform, topping-inclusive surface expansion.</p>
     <p>The process is <strong>non-reversible</strong>. You cannot make the pizza small again. Scientists consider this a feature. Your refrigerator may disagree.</p>
   </div>
+
+  <section class="video-feature reveal" aria-labelledby="labVideoTitle">
+    <h3 id="labVideoTitle">Laboratory Footage</h3>
+    <p>Primary visual evidence from the microwave activation trial.</p>
+    <div class="video-frame">
+      <video controls preload="metadata" playsinline>
+        <source src="Video%20Project.mp4" type="video/mp4"/>
+        Your browser does not support embedded video. Use <a href="Video%20Project.mp4">this direct video link</a>.
+      </video>
+    </div>
+    <div class="video-note">Source: ZIAMG Lab Camera 03 · Trial Batch QEN-3B · June 2045</div>
+  </section>
+
+  <section class="paper-dossier reveal" aria-labelledby="paperDossierTitle">
+    <h3 id="paperDossierTitle">Scientific Paper Dossier</h3>
+    <p>This report is anchored to the primary thesis paper: <strong>Microwave-Induced Lateral Expansion of Quantum Nodule-Enhanced Polymer Lattices</strong>, authored by V. Kruger et al. (ZIAMG, 2044). Open the dossier for abstract context and citation trail.</p>
+    <button class="paper-toggle" id="togglePaperPanel" aria-expanded="false" aria-controls="paperPanel">Open Paper Abstract &amp; References</button>
+    <div class="paper-panel" id="paperPanel">
+      <div class="paper-panel-inner">
+        <h4>Abstract Snapshot</h4>
+        <p>The paper reports a reproducible doubling of dough lattice diameter under 2.45 GHz irradiation using third-generation Quantum Expansion Nodules (QEN-3), with measured expansion factor Phi = 2.00 +/- 0.003 at 45 seconds (n=412).</p>
+        <h4>Selected References</h4>
+        <ol class="ref-list">
+          <li>Kruger, V., Benedetti, A. (2044). Microwave-Induced Lateral Expansion of Quantum Nodule-Enhanced Polymer Lattices. Journal of Applied Molecular Gastronomy, 14(3), 201-233. DOI: 10.1039/JAMG-2044-0031147.</li>
+          <li>Okonkwo, L. T., Marchand, F., et al. (2043). Cryo-electron tomography constraints for hydrated QEN matrices. Nature FoodMatter, 7, 317-329.</li>
+          <li>Benedetti, A., Kruger, V. (2044). Isotropic versus anisotropic QEN activation in laminated dough systems. Journal of Applied Molecular Gastronomy, 14(1), 12-19.</li>
+          <li>ZIAMG Safety Board (2043). Lyon Incident Technical Audit: Power calibration limits in consumer microwave chambers. ISR-2043-04.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
 
   <!-- TWO COLUMNS -->
   <div class="colu">
@@ -823,10 +1108,10 @@
       <div class="infographic">
         <h4>Expansion Rate vs. Microwave Time (seconds)</h4>
         <div class="bar-chart">
-          <div class="bar-row"><label>30 sec</label><div class="bar-track"><div class="bar-fill" style="width:35%"></div></div><span class="bar-val">×1.4</span></div>
-          <div class="bar-row"><label>45 sec ✔ ideal</label><div class="bar-track"><div class="bar-fill" style="width:66%"></div></div><span class="bar-val">×2.0</span></div>
-          <div class="bar-row"><label>60 sec</label><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><span class="bar-val">×2.6</span></div>
-          <div class="bar-row"><label>90 sec ⚠️</label><div class="bar-track"><div class="bar-fill" style="width:98%"></div></div><span class="bar-val">×3.9*</span></div>
+          <div class="bar-row"><label>30 sec</label><div class="bar-track"><div class="bar-fill" data-width="35%" style="width:0"></div></div><span class="bar-val">×1.4</span></div>
+          <div class="bar-row"><label>45 sec ideal</label><div class="bar-track"><div class="bar-fill" data-width="66%" style="width:0"></div></div><span class="bar-val">×2.0</span></div>
+          <div class="bar-row"><label>60 sec</label><div class="bar-track"><div class="bar-fill" data-width="82%" style="width:0"></div></div><span class="bar-val">×2.6</span></div>
+          <div class="bar-row"><label>90 sec caution</label><div class="bar-track"><div class="bar-fill" data-width="98%" style="width:0"></div></div><span class="bar-val">×3.9*</span></div>
         </div>
         <p style="font-size:10px;color:#777;margin-top:10px;font-style:italic;">*At 90 seconds, pizza may develop opinions. Remove from microwave immediately.</p>
       </div>
@@ -862,10 +1147,13 @@
 <script>
   (function () {
     const popup = document.getElementById('ubereatsPopup');
-    const openBtn = document.getElementById('openUbereatsPopup');
     const closeBtn = document.getElementById('closeUbereatsPopup');
+    const togglePaperPanel = document.getElementById('togglePaperPanel');
+    const paperPanel = document.getElementById('paperPanel');
+    const revealItems = document.querySelectorAll('.reveal');
+    const barFills = document.querySelectorAll('.bar-fill[data-width]');
 
-    if (!popup || !openBtn || !closeBtn) {
+    if (!popup || !closeBtn) {
       return;
     }
 
@@ -881,11 +1169,6 @@
 
     setTimeout(openPopup, 1200);
 
-    openBtn.addEventListener('click', function (event) {
-      event.preventDefault();
-      openPopup();
-    });
-
     closeBtn.addEventListener('click', closePopup);
 
     popup.addEventListener('click', function (event) {
@@ -899,6 +1182,41 @@
         closePopup();
       }
     });
+
+    if (togglePaperPanel && paperPanel) {
+      togglePaperPanel.addEventListener('click', function () {
+        const isOpen = paperPanel.classList.toggle('visible');
+        togglePaperPanel.setAttribute('aria-expanded', String(isOpen));
+        togglePaperPanel.textContent = isOpen ? 'Hide Paper Abstract & References' : 'Open Paper Abstract & References';
+      });
+    }
+
+    const revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add('visible');
+
+        if (entry.target.classList.contains('infographic')) {
+          barFills.forEach(function (bar) {
+            bar.style.width = bar.getAttribute('data-width') || '0';
+          });
+        }
+
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+
+    revealItems.forEach(function (item) {
+      revealObserver.observe(item);
+    });
+
+    const infographic = document.querySelector('.infographic');
+    if (infographic) {
+      revealObserver.observe(infographic);
+    }
   })();
 </script>
 

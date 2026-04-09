@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ZIAMG — Thesis Schematics: Microwave-Induced Particle Expansion</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Code+Pro:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --paper: #f9f7f2;
+  --paper2: #f4f1ea;
+  --ink: #1a1a1a;
+  --ink2: #2e2e2e;
+  --dim: #5a5a5a;
+  --rule: #c8c0b0;
+  --accent: #8b1a1a;
+  --blue-ink: #1a3a6b;
+  --grid: #ddd8ce;
+  --highlight: #e8e0cc;
+  --red-mark: #b02020;
+  --green-mark: #1a6b2a;
+  --shadow: rgba(0,0,0,.08);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #d8d3c8;
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--ink);
+  padding: 40px 20px 80px;
+  min-height: 100vh;
+}
+
+/* ── PAPER SHEET ── */
+.paper {
+  background: var(--paper);
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 62px 72px;
+  box-shadow: 0 2px 6px var(--shadow), 0 8px 30px rgba(0,0,0,.12), 0 20px 60px rgba(0,0,0,.08);
+  position: relative;
+}
+.paper::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background: repeating-linear-gradient(to bottom, transparent 0px, transparent 27px, rgba(0,0,0,.025) 27px, rgba(0,0,0,.025) 28px);
+  pointer-events: none;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+  margin-bottom: 10px;
+}
+.journal-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 6px;
+}
+.paper-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.paper-authors {
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+.paper-affil {
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: .04em;
+}
+.doc-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: #888;
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 4px;
+  margin: 36px 0 20px;
+}
+.section-title span { font-style: italic; text-transform: none; letter-spacing: 0; }
+
+/* ── FIGURE BLOCK ── */
+.fig-block {
+  margin: 28px 0;
+  page-break-inside: avoid;
+}
+.fig-inner {
+  background: var(--paper2);
+  border: 1px solid var(--rule);
+  padding: 24px;
+  position: relative;
+}
+.fig-number {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  position: absolute;
+  top: 10px;
+  left: 14px;
+}
+.fig-caption {
+  margin-top: 12px;
+  border-top: 1px solid var(--rule);
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink2);
+}
+.fig-caption strong {
+  font-weight: 600;
+}
+.fig-caption em { font-style: italic; color: var(--dim); }
+
+/* ── SVG FIGURES ── */
+svg { display: block; margin: 0 auto; }
+text { font-family: 'Source Code Pro', monospace; }
+.axis-label { font-family: 'EB Garamond', serif; font-size: 11px; font-style: italic; fill: var(--ink2); }
+.tick-label { font-size: 9px; fill: var(--dim); font-family: 'Source Code Pro', monospace; }
+.fig-title-text { font-size: 10px; fill: var(--accent); font-family: 'Source Code Pro', monospace; letter-spacing: .06em; }
+
+/* ── EQUATIONS ── */
+.eq-block {
+  margin: 18px 48px;
+  padding: 12px 20px;
+  background: var(--highlight);
+  border-left: 3px solid var(--blue-ink);
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eq-num {
+  font-size: 12px;
+  color: var(--dim);
+  font-family: 'Source Code Pro', monospace;
+}
+.eq-content { flex: 1; text-align: center; letter-spacing: .03em; }
+.eq-content sub { font-size: .62em; vertical-align: sub; }
+.eq-content sup { font-size: .62em; vertical-align: super; }
+.frac { display: inline-block; text-align: center; vertical-align: middle; }
+.frac .num, .frac .den { display: block; }
+.frac .num { border-bottom: 1px solid var(--ink); padding: 0 4px; }
+.frac .den { padding: 0 4px; }
+
+/* ── BODY TEXT ── */
+.body-text {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--ink2);
+  text-align: justify;
+  margin-bottom: 12px;
+}
+.body-text strong { font-weight: 600; color: var(--ink); }
+.body-text em { color: var(--dim); }
+
+/* ── 2-COL LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── ANNOTATION MARKS ── */
+.margin-note {
+  position: absolute;
+  right: -52px;
+  font-size: 9px;
+  font-family: 'Source Code Pro', monospace;
+  color: var(--accent);
+  line-height: 1.4;
+  text-align: center;
+  width: 44px;
+  transform: rotate(90deg) translateX(-50%);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+/* ── TABLE ── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 14px 0;
+  font-family: 'Source Code Pro', monospace;
+}
+.data-table th {
+  background: var(--highlight);
+  border: 1px solid var(--rule);
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+}
+.data-table td {
+  border: 1px solid var(--rule);
+  padding: 5px 10px;
+  text-align: center;
+  color: var(--ink2);
+}
+.data-table tr:nth-child(even) td { background: var(--highlight); }
+.data-table td.highlight { color: var(--accent); font-weight: 600; }
+
+/* ── REFERENCES ── */
+.references {
+  font-size: 11px;
+  color: var(--dim);
+  border-top: 1px solid var(--rule);
+  margin-top: 40px;
+  padding-top: 14px;
+  line-height: 1.8;
+  font-family: 'Crimson Pro', serif;
+}
+.references h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-family: 'EB Garamond', serif;
+}
+
+/* print-style page number */
+.page-footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 11px;
+  color: var(--dim);
+  font-family: 'Source Code Pro', monospace;
+  border-top: 1px solid var(--rule);
+  padding-top: 10px;
+}
+
+/* animated elements */
+@keyframes electronSpin {
+  from { transform: rotate(0deg) translateX(34px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(34px) rotate(-360deg); }
+}
+@keyframes electronSpin2 {
+  from { transform: rotate(90deg) translateX(55px) rotate(-90deg); }
+  to   { transform: rotate(450deg) translateX(55px) rotate(-450deg); }
+}
+@keyframes waveMove {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -60; }
+}
+@keyframes pulseRed {
+  0%,100% { r: 6; opacity: 1; }
+  50% { r: 8; opacity: .8; }
+}
+@keyframes expandChain {
+  0%,40% { transform: scaleX(1); }
+  60%,100% { transform: scaleX(1.9); }
+}
+</style>
+</head>
+<body>
+
+<div class="paper">
+
+  <!-- ══ DOCUMENT HEADER ══ -->
+  <div class="doc-header">
+    <div class="journal-name">Journal of Applied Molecular Gastronomy · Vol. 14, No. 3 · 2044</div>
+    <div class="paper-title">Microwave-Induced Lateral Expansion of Quantum Nodule–Enhanced Polymer Lattices:<br/>Experimental Evidence and Mechanistic Framework</div>
+    <div class="paper-authors">V. Krüger<sup>1,*</sup>, A. Benedetti<sup>2</sup>, L. T. Okonkwo<sup>1</sup>, F. Marchand<sup>3</sup></div>
+    <div class="paper-affil">
+      <sup>1</sup>Dept. of Thermomolecular Dynamics, Zurich Institute of Applied Molecular Gastronomy (ZIAMG) &nbsp;·&nbsp;
+      <sup>2</sup>Univ. of Geneva, Laboratory of Photon–Matter Interaction &nbsp;·&nbsp;
+      <sup>3</sup>Independent Researcher, Lyon (formerly)
+    </div>
+    <div class="doc-meta">
+      <span>Received: 12 Feb 2044 &nbsp;| Accepted: 3 May 2044 &nbsp;| Published: 19 Jun 2044</span>
+      <span>DOI: 10.1039/JAMG-2044-0031147</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SECTION 2 ══ -->
+  <div class="section-title">2. Theoretical Framework &amp; <span>Mechanistic Schematics</span></div>
+
+  <p class="body-text">
+    The following figures present the proposed mechanistic model for microwave-induced lateral particle expansion (MILPE) in QEN-3–doped dough matrices. All schematics are derived from cryo-electron tomography data collected at ZIAMG, cross-referenced with molecular dynamics simulations performed on the GenΩ-7 supercomputing cluster (Geneva, 2043).
+  </p>
+
+
+  <!-- ══ FIGURE 1 — ATOM SCHEMATIC ══ -->
+  <div class="fig-block">
+    <div class="fig-inner">
+      <div class="fig-number">FIGURE 1</div>
+
+      <svg viewBox="0 0 740 310" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- grid background -->
+        <defs>
+          <pattern id="smallgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#ddd8ce" stroke-width=".5"/>
+          </pattern>
+          <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#1a3a6b"/>
+          </marker>
+          <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#8b1a1a"/>
+          </marker>
+          <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#1a6b2a"/>
+          </marker>
+          <radialGradient id="nucleusGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#e05020"/>
+            <stop offset="100%" stop-color="#800000"/>
+          </radialGradient>
+          <radialGradient id="eGrad" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#4488cc"/>
+            <stop offset="100%" stop-color="#1a3a8b"/>
+          </radialGradient>
+          <radialGradient id="photonGrad" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#ffe040"/>
+            <stop offset="100%" stop-color="#cc8000"/>
+          </radialGradient>
+        </defs>
+
+        <rect width="740" height="310" fill="url(#smallgrid)"/>
+        <rect width="740" height="310" fill="none" stroke="#c8c0b0" stroke-width="1"/>
+
+        <!-- LEFT ATOM: undisturbed -->
+        <text x="155" y="22" text-anchor="middle" class="fig-title-text">UNDISTURBED STATE (T = 293 K)</text>
+
+        <!-- orbit ellipses -->
+        <ellipse cx="155" cy="162" rx="68" ry="68" fill="none" stroke="#b0b8c8" stroke-width="1" stroke-dasharray="4,3"/>
+        <ellipse cx="155" cy="162" rx="100" ry="42" fill="none" stroke="#b0b8c8" stroke-width=".8" stroke-dasharray="3,3" transform="rotate(-30,155,162)"/>
+        <ellipse cx="155" cy="162" rx="52" ry="100" fill="none" stroke="#b0b8c8" stroke-width=".8" stroke-dasharray="3,3" transform="rotate(20,155,162)"/>
+
+        <!-- nucleus -->
+        <circle cx="155" cy="162" r="20" fill="url(#nucleusGrad)" opacity=".95"/>
+        <text x="155" y="158" text-anchor="middle" font-size="8" fill="white" font-family="'Source Code Pro',monospace" font-weight="600">C₁₂</text>
+        <text x="155" y="169" text-anchor="middle" font-size="7" fill="#ffcca0" font-family="'Source Code Pro',monospace">CORE</text>
+
+        <!-- electrons (static positions) -->
+        <circle cx="155" cy="94" r="6" fill="url(#eGrad)"/>
+        <text x="170" y="90" font-size="8" fill="#1a3a6b" font-family="'Source Code Pro',monospace">e⁻</text>
+        <circle cx="223" cy="162" r="6" fill="url(#eGrad)"/>
+        <text x="231" y="158" font-size="8" fill="#1a3a6b" font-family="'Source Code Pro',monospace">e⁻</text>
+        <circle cx="108" cy="218" r="6" fill="url(#eGrad)"/>
+        <text x="116" y="214" font-size="8" fill="#1a3a6b" font-family="'Source Code Pro',monospace">e⁻</text>
+        <circle cx="86" cy="135" r="5" fill="url(#eGrad)" opacity=".7"/>
+        <circle cx="192" cy="106" r="5" fill="url(#eGrad)" opacity=".7"/>
+
+        <!-- bond lines to neighbor (faded) -->
+        <line x1="222" y1="162" x2="270" y2="162" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="250" y="155" font-size="8" fill="#888" font-family="'Source Code Pro',monospace">H-bond</text>
+
+        <!-- electron cloud annotation -->
+        <path d="M 232 120 Q 260 90 270 100" stroke="#1a3a6b" stroke-width="1" fill="none" marker-end="url(#arrowB)"/>
+        <text x="258" y="88" font-size="9" fill="#1a3a6b" text-anchor="middle" font-family="'Source Code Pro',monospace">e⁻ cloud</text>
+        <text x="258" y="99" font-size="9" fill="#1a3a6b" text-anchor="middle" font-family="'Source Code Pro',monospace">(ρ-orbital)</text>
+
+        <!-- binding energy label -->
+        <path d="M 90 240 Q 70 268 90 278" stroke="#8b1a1a" stroke-width="1" fill="none" marker-end="url(#arrowR)"/>
+        <text x="50" y="285" font-size="9" fill="#8b1a1a" font-family="'Source Code Pro',monospace">E_bind = 4.7 eV</text>
+
+        <!-- EBE radius annotation -->
+        <line x1="155" y1="162" x2="155" y2="94" stroke="#1a6b2a" stroke-width=".7" stroke-dasharray="3,2"/>
+        <text x="160" y="132" font-size="8" fill="#1a6b2a" font-family="'Source Code Pro',monospace">r₀ = 1.42 Å</text>
+
+
+        <!-- DIVIDER -->
+        <line x1="370" y1="20" x2="370" y2="290" stroke="#c8c0b0" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="370" y="160" text-anchor="middle" font-size="20" fill="#c8c0b0" transform="rotate(90,370,160)">→ 2.45 GHz →</text>
+
+
+        <!-- RIGHT ATOM: excited / expanded -->
+        <text x="575" y="22" text-anchor="middle" class="fig-title-text">EXCITED STATE — QEN ACTIVATED (T = 368 K)</text>
+
+        <!-- expanded orbits -->
+        <ellipse cx="575" cy="155" rx="108" ry="108" fill="none" stroke="#c0301a" stroke-width="1" stroke-dasharray="4,3" opacity=".7"/>
+        <ellipse cx="575" cy="155" rx="148" ry="55" fill="none" stroke="#c0301a" stroke-width=".8" stroke-dasharray="3,3" opacity=".6" transform="rotate(-30,575,155)"/>
+        <ellipse cx="575" cy="155" rx="70" ry="140" fill="none" stroke="#c0301a" stroke-width=".8" stroke-dasharray="3,3" opacity=".6" transform="rotate(20,575,155)"/>
+
+        <!-- expanded glow -->
+        <circle cx="575" cy="155" r="115" fill="rgba(255,100,20,.04)" stroke="none"/>
+
+        <!-- nucleus (slightly agitated) -->
+        <circle cx="575" cy="155" r="22" fill="url(#nucleusGrad)" opacity=".95"/>
+        <circle cx="575" cy="155" r="28" fill="none" stroke="#e05020" stroke-width=".8" stroke-dasharray="3,2" opacity=".5"/>
+        <text x="575" y="151" text-anchor="middle" font-size="8" fill="white" font-family="'Source Code Pro',monospace" font-weight="600">C₁₂</text>
+        <text x="575" y="162" text-anchor="middle" font-size="7" fill="#ffcca0" font-family="'Source Code Pro',monospace">EXCITED</text>
+
+        <!-- electrons at larger orbits -->
+        <circle cx="575" cy="47" r="7" fill="url(#eGrad)"/>
+        <text x="587" y="43" font-size="8" fill="#1a3a6b" font-family="'Source Code Pro',monospace">e⁻</text>
+        <circle cx="683" cy="155" r="7" fill="url(#eGrad)"/>
+        <text x="691" y="151" font-size="8" fill="#1a3a6b" font-family="'Source Code Pro',monospace">e⁻</text>
+        <circle cx="510" cy="245" r="7" fill="url(#eGrad)"/>
+        <circle cx="467" cy="115" r="5" fill="url(#eGrad)" opacity=".7"/>
+        <circle cx="647" cy="82" r="5" fill="url(#eGrad)" opacity=".7"/>
+
+        <!-- bond line: broken / stretched -->
+        <line x1="700" y1="155" x2="735" y2="155" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="718" y="148" font-size="7" fill="#cc2020" font-family="'Source Code Pro',monospace">BROKEN</text>
+
+        <!-- radius expansion annotation -->
+        <line x1="575" y1="155" x2="575" y2="47" stroke="#1a6b2a" stroke-width=".7" stroke-dasharray="3,2"/>
+        <text x="582" y="105" font-size="8" fill="#1a6b2a" font-family="'Source Code Pro',monospace">r₁ = 2.84 Å</text>
+        <text x="582" y="116" font-size="8" fill="#cc2020" font-family="'Source Code Pro',monospace">(+100%)</text>
+
+        <!-- energy release arrow -->
+        <path d="M 480 270 Q 450 290 455 278" stroke="#8b1a1a" stroke-width="1" fill="none" marker-end="url(#arrowR)"/>
+        <text x="400" y="293" font-size="9" fill="#8b1a1a" font-family="'Source Code Pro',monospace">ΔE = +9.4 eV · [QEN-3]</text>
+
+        <!-- photon arrows coming in from left -->
+        <line x1="395" y1="130" x2="445" y2="145" stroke="#cc8000" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <line x1="395" y1="160" x2="445" y2="160" stroke="#cc8000" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <line x1="395" y1="190" x2="445" y2="175" stroke="#cc8000" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <text x="385" y="155" text-anchor="middle" font-size="8" fill="#cc8000" font-family="'Source Code Pro',monospace">hν</text>
+        <text x="385" y="165" text-anchor="middle" font-size="8" fill="#cc8000" font-family="'Source Code Pro',monospace">2.45G</text>
+      </svg>
+
+      <div class="fig-caption">
+        <strong>Fig. 1. Schematic representation of the undisturbed vs. microwave-excited atomic state in QEN-3–doped dough.</strong>
+        Left panel: the undisturbed carbon atom at ambient temperature (293 K), showing electron orbital radii at r₀ = 1.42 Å and inter-molecular hydrogen bond intact (E<sub>bind</sub> = 4.7 eV). Right panel: the same atom after 45 s exposure to 2.45 GHz microwave radiation, showing orbital radius doubling (r₁ = 2.84 Å), hydrogen bond rupture, and net energy gain ΔE = +9.4 eV facilitated by the QEN-3 nodule. <em>Adapted from Krüger et al., ZIAMG Internal Report 2043-07.</em>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ FIGURE 2 — MOLECULAR CHAIN EXPANSION ══ -->
+  <div class="fig-block">
+    <div class="fig-inner">
+      <div class="fig-number">FIGURE 2</div>
+
+      <svg viewBox="0 0 740 360" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="smallgrid2" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#ddd8ce" stroke-width=".5"/>
+          </pattern>
+          <radialGradient id="nodeC" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#e07040"/>
+            <stop offset="100%" stop-color="#993010"/>
+          </radialGradient>
+          <radialGradient id="nodeH" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#4090e0"/>
+            <stop offset="100%" stop-color="#1040a0"/>
+          </radialGradient>
+          <radialGradient id="nodeO" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#40c080"/>
+            <stop offset="100%" stop-color="#107040"/>
+          </radialGradient>
+          <radialGradient id="qenGrad" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#ffe060"/>
+            <stop offset="100%" stop-color="#c08000"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="arrowExpand" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#cc2020"/>
+          </marker>
+          <marker id="arrowExpandG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#1a6b2a"/>
+          </marker>
+        </defs>
+        <rect width="740" height="360" fill="url(#smallgrid2)"/>
+        <rect width="740" height="360" fill="none" stroke="#c8c0b0" stroke-width="1"/>
+
+        <!-- ── ROW A: COMPACT CHAIN ── -->
+        <text x="16" y="55" class="fig-title-text">A. PRE-GREATNESS CONFIGURATION — H-BONDS INTACT</text>
+
+        <!-- background zone A -->
+        <rect x="10" y="62" width="720" height="88" fill="rgba(220,230,245,.3)" stroke="#b0b8cc" stroke-width=".7" rx="3"/>
+
+        <!-- Molecules: compact -->
+        <!-- Bond lengths: 28px between centres, node r=14 -->
+        <!-- Nodes at x: 40, 96, 144, 192, 248, 296, 344, 400, 448, 496, 552, 600, 648, 704 -->
+
+        <!-- QEN nodule marker (compact - shown as diamond) -->
+        <polygon points="186,106 200,92 214,106 200,120" fill="url(#qenGrad)" stroke="#996600" stroke-width="1" opacity=".85"/>
+        <text x="200" y="109" text-anchor="middle" font-size="7" fill="white" font-family="'Source Code Pro',monospace" font-weight="600">QEN</text>
+
+        <!-- chain A compact -->
+        <!-- segment 1 -->
+        <line x1="54" y1="106" x2="78" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="92" y1="106" x2="116" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="130" y1="106" x2="154" y2="106" stroke="#555" stroke-width="2.5"/>
+        <!-- H-bond (dashed, to QEN) -->
+        <line x1="168" y1="106" x2="186" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- QEN to next -->
+        <line x1="214" y1="106" x2="228" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- continue -->
+        <line x1="242" y1="106" x2="266" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="280" y1="106" x2="304" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="318" y1="106" x2="342" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="356" y1="106" x2="368" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <!-- QEN 2 -->
+        <polygon points="370,106 384,92 398,106 384,120" fill="url(#qenGrad)" stroke="#996600" stroke-width="1" opacity=".85"/>
+        <text x="384" y="109" text-anchor="middle" font-size="7" fill="white" font-family="'Source Code Pro',monospace" font-weight="600">QEN</text>
+
+        <line x1="398" y1="106" x2="412" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="426" y1="106" x2="450" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="464" y1="106" x2="488" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="502" y1="106" x2="526" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="540" y1="106" x2="554" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <!-- QEN 3 -->
+        <polygon points="556,106 570,92 584,106 570,120" fill="url(#qenGrad)" stroke="#996600" stroke-width="1" opacity=".85"/>
+        <text x="570" y="109" text-anchor="middle" font-size="7" fill="white" font-family="'Source Code Pro',monospace" font-weight="600">QEN</text>
+
+        <line x1="584" y1="106" x2="598" y2="106" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="612" y1="106" x2="636" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="650" y1="106" x2="674" y2="106" stroke="#555" stroke-width="2.5"/>
+        <line x1="688" y1="106" x2="712" y2="106" stroke="#555" stroke-width="2.5"/>
+
+        <!-- NODES compact -->
+        <!-- 14 nodes, x positions: 40,68,92,130,154,228,242... simplified: key positions -->
+        <circle cx="40"  cy="106" r="13" fill="url(#nodeC)"/><text x="40" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="80"  cy="106" r="13" fill="url(#nodeH)"/><text x="80" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="120" cy="106" r="13" fill="url(#nodeC)"/><text x="120" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="160" cy="106" r="13" fill="url(#nodeO)"/><text x="160" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="230" cy="106" r="13" fill="url(#nodeH)"/><text x="230" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="270" cy="106" r="13" fill="url(#nodeC)"/><text x="270" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="310" cy="106" r="13" fill="url(#nodeO)"/><text x="310" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="350" cy="106" r="13" fill="url(#nodeH)"/><text x="350" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="414" cy="106" r="13" fill="url(#nodeC)"/><text x="414" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="454" cy="106" r="13" fill="url(#nodeH)"/><text x="454" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="494" cy="106" r="13" fill="url(#nodeC)"/><text x="494" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="534" cy="106" r="13" fill="url(#nodeO)"/><text x="534" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="600" cy="106" r="13" fill="url(#nodeH)"/><text x="600" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="640" cy="106" r="13" fill="url(#nodeC)"/><text x="640" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="680" cy="106" r="13" fill="url(#nodeO)"/><text x="680" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="720" cy="106" r="13" fill="url(#nodeH)"/><text x="720" y="110" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+
+        <!-- span brace A -->
+        <line x1="28" y1="136" x2="733" y2="136" stroke="#555" stroke-width="1"/>
+        <line x1="28" y1="132" x2="28" y2="140" stroke="#555" stroke-width="1"/>
+        <line x1="733" y1="132" x2="733" y2="140" stroke="#555" stroke-width="1"/>
+        <text x="380" y="148" text-anchor="middle" font-size="9" fill="#555" font-family="'Source Code Pro',monospace">L₀ = 7.05 nm (total chain length)</text>
+
+
+        <!-- ── MICROWAVE ARROW ── -->
+        <text x="370" y="176" text-anchor="middle" font-size="11" fill="#c08000" font-family="'Source Code Pro',monospace">↓ ↓ ↓  hν  [2.45 GHz, t = 45 s, P = 800 W]  ↓ ↓ ↓</text>
+
+
+        <!-- ── ROW B: EXPANDED CHAIN ── -->
+        <text x="16" y="205" class="fig-title-text">B. POST-ACTIVATION — PERMANENT GREATNESS STATE (H-BONDS RUPTURED)</text>
+
+        <rect x="10" y="212" width="720" height="100" fill="rgba(245,220,215,.35)" stroke="#cc9090" stroke-width=".7" rx="3"/>
+
+        <!-- expanded QEN (now open/exploded) -->
+        <!-- QEN 1 expanded -->
+        <circle cx="200" cy="262" r="16" fill="none" stroke="#cc8000" stroke-width="1.5" stroke-dasharray="4,3" opacity=".8"/>
+        <circle cx="200" cy="262" r="6" fill="#ffe060" opacity=".7"/>
+        <text x="200" y="265" text-anchor="middle" font-size="7" fill="#664400" font-family="'Source Code Pro',monospace">QEN✓</text>
+
+        <!-- expanded bonds (longer) -->
+        <line x1="54"  y1="262" x2="94"  y2="262" stroke="#cc2020" stroke-width="2" stroke-dasharray="1,0"/>
+        <line x1="108" y1="262" x2="148" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="162" y1="262" x2="184" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="216" y1="262" x2="242" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="256" y1="262" x2="296" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="310" y1="262" x2="350" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="364" y1="262" x2="374" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+        <!-- QEN 2 expanded -->
+        <circle cx="388" cy="262" r="16" fill="none" stroke="#cc8000" stroke-width="1.5" stroke-dasharray="4,3" opacity=".8"/>
+        <circle cx="388" cy="262" r="6" fill="#ffe060" opacity=".7"/>
+        <text x="388" y="265" text-anchor="middle" font-size="7" fill="#664400" font-family="'Source Code Pro',monospace">QEN✓</text>
+
+        <line x1="402" y1="262" x2="428" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="442" y1="262" x2="482" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="496" y1="262" x2="536" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="550" y1="262" x2="568" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+        <!-- QEN 3 expanded -->
+        <circle cx="582" cy="262" r="16" fill="none" stroke="#cc8000" stroke-width="1.5" stroke-dasharray="4,3" opacity=".8"/>
+        <circle cx="582" cy="262" r="6" fill="#ffe060" opacity=".7"/>
+        <text x="582" y="265" text-anchor="middle" font-size="7" fill="#664400" font-family="'Source Code Pro',monospace">QEN✓</text>
+
+        <line x1="596" y1="262" x2="620" y2="262" stroke="#cc2020" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="634" y1="262" x2="674" y2="262" stroke="#cc2020" stroke-width="2"/>
+        <line x1="688" y1="262" x2="728" y2="262" stroke="#cc2020" stroke-width="2"/>
+
+        <!-- NODES expanded (same atoms, farther apart) -->
+        <circle cx="40"  cy="262" r="13" fill="url(#nodeC)" filter="url(#glow)"/><text x="40" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="98"  cy="262" r="13" fill="url(#nodeH)" filter="url(#glow)"/><text x="98" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="154" cy="262" r="13" fill="url(#nodeC)" filter="url(#glow)"/><text x="154" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="244" cy="262" r="13" fill="url(#nodeO)" filter="url(#glow)"/><text x="244" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="300" cy="262" r="13" fill="url(#nodeH)" filter="url(#glow)"/><text x="300" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="356" cy="262" r="13" fill="url(#nodeC)" filter="url(#glow)"/><text x="356" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="430" cy="262" r="13" fill="url(#nodeO)" filter="url(#glow)"/><text x="430" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+        <circle cx="486" cy="262" r="13" fill="url(#nodeH)" filter="url(#glow)"/><text x="486" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="542" cy="262" r="13" fill="url(#nodeC)" filter="url(#glow)"/><text x="542" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="624" cy="262" r="13" fill="url(#nodeH)" filter="url(#glow)"/><text x="624" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">H</text>
+        <circle cx="678" cy="262" r="13" fill="url(#nodeC)" filter="url(#glow)"/><text x="678" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">C</text>
+        <circle cx="730" cy="262" r="13" fill="url(#nodeO)" filter="url(#glow)"/><text x="730" y="266" text-anchor="middle" font-size="9" fill="white" font-family="'Source Code Pro',monospace">O</text>
+
+        <!-- span brace B -->
+        <line x1="28" y1="292" x2="733" y2="292" stroke="#cc2020" stroke-width="1"/>
+        <line x1="28" y1="288" x2="28" y2="296" stroke="#cc2020" stroke-width="1"/>
+        <line x1="733" y1="288" x2="733" y2="296" stroke="#cc2020" stroke-width="1"/>
+        <text x="380" y="308" text-anchor="middle" font-size="9" fill="#cc2020" font-family="'Source Code Pro',monospace">L₁ = 14.10 nm  (+100.0% · Δσ = 0.003)  [QEN-3 ACTIVATION]</text>
+
+        <!-- vertical expansion arrows between chains -->
+        <line x1="95" y1="118" x2="95" y2="248" stroke="#1a6b2a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowExpandG)"/>
+        <text x="100" y="188" font-size="8" fill="#1a6b2a" font-family="'Source Code Pro',monospace">+Δd</text>
+
+        <!-- Legend -->
+        <circle cx="400" cy="335" r="7" fill="url(#nodeC)"/><text x="411" y="339" font-size="9" fill="#555" font-family="'Source Code Pro',monospace">Carbon (C)</text>
+        <circle cx="480" cy="335" r="7" fill="url(#nodeH)"/><text x="491" y="339" font-size="9" fill="#555" font-family="'Source Code Pro',monospace">Hydrogen (H)</text>
+        <circle cx="560" cy="335" r="7" fill="url(#nodeO)"/><text x="571" y="339" font-size="9" fill="#555" font-family="'Source Code Pro',monospace">Oxygen (O)</text>
+        <polygon points="628,328 634,322 640,328 634,334" fill="url(#qenGrad)" stroke="#996600" stroke-width="1"/><text x="645" y="331" font-size="9" fill="#996600" font-family="'Source Code Pro',monospace">QEN-3 nodule</text>
+        <line x1="396" y1="348" x2="418" y2="348" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/><text x="422" y="352" font-size="9" fill="#555" font-family="'Source Code Pro',monospace">H-bond</text>
+        <line x1="480" y1="348" x2="502" y2="348" stroke="#cc2020" stroke-width="2"/><text x="506" y="352" font-size="9" fill="#cc2020" font-family="'Source Code Pro',monospace">Expanded covalent bond</text>
+      </svg>
+
+      <div class="fig-caption">
+        <strong>Fig. 2. Molecular chain diagrams: pre-activation (A) vs. post-activation (B) states.</strong>
+        Panel A depicts the intact gluten polymer chain at rest. QEN-3 nodules (◇) are distributed at regular intervals of ~2.35 nm, maintaining the chain in its compact Pre-Greatness Configuration via intact hydrogen bonds (dashed). Total chain length L₀ = 7.05 nm. Panel B shows the identical chain following 45 s microwave exposure. Hydrogen bond rupture at each QEN-3 site triggers a cascade lateral extension of the covalent backbone, yielding L₁ = 14.10 nm (+100%, σ = 0.003). <em>Cryo-ET data, ZIAMG 2043.</em>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ EQUATIONS ══ -->
+  <div class="section-title">3. Governing Equations</div>
+
+  <p class="body-text">The lateral expansion factor <i>Φ</i> of a QEN-3–doped chain can be described by the modified Krüger–Benedetti relation (Eq. 1), which accounts for nodule density <i>ρ<sub>QEN</sub></i>, photon flux <i>Φ<sub>hν</sub></i>, and the empirically-derived activation constant <i>κ</i>:</p>
+
+  <div class="eq-block">
+    <span class="eq-content">
+      Φ = 1 +  κ · ρ<sub>QEN</sub> · <span class="frac"><span class="num">Φ<sub>hν</sub> · t</span><span class="den">E<sub>bind</sub><sup>½</sup></span></span>  ·  e<sup>−λ/T</sup>
+    </span>
+    <span class="eq-num">(1)</span>
+  </div>
+
+  <p class="body-text">where <i>t</i> is exposure time (s), <i>T</i> is temperature (K), and λ is the QEN-3 thermal dissipation coefficient (λ = 0.034 K·s<sup>−1</sup>, experimentally determined). For standard QEN-3 doping at ρ<sub>QEN</sub> = 1 nodule/cm², t = 45 s, T = 368 K, and E<sub>bind</sub> = 4.7 eV, equation (1) yields Φ = 2.00 ± 0.003, in excellent agreement with measured values.</p>
+
+  <div class="eq-block">
+    <span class="eq-content">
+      ΔS = S<sub>0</sub> · (Φ² − 1) &nbsp;=&nbsp; S<sub>0</sub> · 3.00
+    </span>
+    <span class="eq-num">(2)</span>
+  </div>
+
+  <p class="body-text">Equation (2) expresses the net surface area gain ΔS as a function of initial surface S<sub>0</sub> and expansion factor Φ. For a circular pizza of diameter d₀ = 8 in (S₀ = 324.3 cm²), the post-activation surface reaches S₁ = 1,297 cm², consistent with a 16-inch final diameter.</p>
+
+
+  <!-- ══ FIGURE 3 — EXPANSION CURVE ══ -->
+  <div class="fig-block">
+    <div class="fig-inner">
+      <div class="fig-number">FIGURE 3</div>
+
+      <svg viewBox="0 0 740 280" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="smallgrid3" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#ddd8ce" stroke-width=".5"/>
+          </pattern>
+          <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8b1a1a" stop-opacity=".6"/>
+            <stop offset="100%" stop-color="#8b1a1a" stop-opacity=".05"/>
+          </linearGradient>
+        </defs>
+        <rect width="740" height="280" fill="url(#smallgrid3)"/>
+        <rect width="740" height="280" fill="none" stroke="#c8c0b0" stroke-width="1"/>
+
+        <!-- plot area -->
+        <rect x="70" y="20" width="620" height="200" fill="white" stroke="#bbb" stroke-width="1"/>
+
+        <!-- grid lines inside plot -->
+        <line x1="70" y1="70"  x2="690" y2="70"  stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="70" y1="120" x2="690" y2="120" stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="70" y1="170" x2="690" y2="170" stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="194" y1="20" x2="194" y2="220" stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="318" y1="20" x2="318" y2="220" stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="442" y1="20" x2="442" y2="220" stroke="#e8e0d0" stroke-width="1"/>
+        <line x1="566" y1="20" x2="566" y2="220" stroke="#e8e0d0" stroke-width="1"/>
+
+        <!-- axes -->
+        <line x1="70" y1="220" x2="690" y2="220" stroke="#333" stroke-width="1.5"/>
+        <line x1="70" y1="20"  x2="70"  y2="220" stroke="#333" stroke-width="1.5"/>
+
+        <!-- tick marks X -->
+        <line x1="194" y1="220" x2="194" y2="226" stroke="#555" stroke-width="1"/><text x="194" y="236" text-anchor="middle" class="tick-label">15</text>
+        <line x1="318" y1="220" x2="318" y2="226" stroke="#555" stroke-width="1"/><text x="318" y="236" text-anchor="middle" class="tick-label">30</text>
+        <line x1="442" y1="220" x2="442" y2="226" stroke="#555" stroke-width="1"/><text x="442" y="236" text-anchor="middle" class="tick-label">45</text>
+        <line x1="566" y1="220" x2="566" y2="226" stroke="#555" stroke-width="1"/><text x="566" y="236" text-anchor="middle" class="tick-label">60</text>
+        <line x1="690" y1="220" x2="690" y2="226" stroke="#555" stroke-width="1"/><text x="690" y="236" text-anchor="middle" class="tick-label">75</text>
+        <text x="380" y="255" text-anchor="middle" class="axis-label">Microwave exposure time t (seconds)</text>
+
+        <!-- tick marks Y -->
+        <line x1="70" y1="170" x2="64" y2="170" stroke="#555" stroke-width="1"/><text x="58" y="174" text-anchor="end" class="tick-label">1.0</text>
+        <line x1="70" y1="120" x2="64" y2="120" stroke="#555" stroke-width="1"/><text x="58" y="124" text-anchor="end" class="tick-label">1.5</text>
+        <line x1="70" y1="70"  x2="64" y2="70"  stroke="#555" stroke-width="1"/><text x="58" y="74"  text-anchor="end" class="tick-label">2.0</text>
+        <line x1="70" y1="20"  x2="64" y2="20"  stroke="#555" stroke-width="1"/><text x="58" y="24"  text-anchor="end" class="tick-label">2.5</text>
+        <text x="22" y="120" text-anchor="middle" class="axis-label" transform="rotate(-90,22,120)">Expansion factor Φ</text>
+
+        <!-- QEN-3 CURVE (main, red) — sigmoid-like growth, plateaus at ~2.0 (y=70) -->
+        <!-- key points: (70,170)=1.0, (194,165)=1.05, (318,140)=1.3, (442,70)=2.0, (566,68)=2.02, (690,67)=2.03 -->
+        <path d="M 70,170 C 130,170 170,168 194,165 S 260,150 318,140 S 390,90 442,70 L 566,68 L 690,67"
+              fill="url(#curveGrad)" stroke="none" opacity=".4"/>
+        <path d="M 70,170 C 130,170 170,168 194,165 S 260,150 318,140 S 390,90 442,70 L 566,68 L 690,67"
+              fill="none" stroke="#8b1a1a" stroke-width="2.5"/>
+
+        <!-- QEN-2 CURVE (dashed, blue) -->
+        <path d="M 70,170 C 140,170 180,167 220,160 S 300,148 370,130 S 430,100 490,87 L 620,80 L 690,79"
+              fill="none" stroke="#1a3a6b" stroke-width="1.8" stroke-dasharray="7,4"/>
+
+        <!-- QEN-1 CURVE (dotted, green) -->
+        <path d="M 70,170 C 160,170 210,168 270,162 S 360,150 430,140 S 500,128 570,122 L 690,120"
+              fill="none" stroke="#1a6b2a" stroke-width="1.5" stroke-dasharray="3,5"/>
+
+        <!-- CONTROL (flat) -->
+        <path d="M 70,170 L 690,170" fill="none" stroke="#999" stroke-width="1.2" stroke-dasharray="5,5"/>
+
+        <!-- Φ=2.0 target line -->
+        <line x1="70" y1="70" x2="690" y2="70" stroke="#cc2020" stroke-width=".8" stroke-dasharray="4,3" opacity=".5"/>
+        <text x="693" y="74" font-size="9" fill="#cc2020" font-family="'Source Code Pro',monospace">Φ=2.0</text>
+
+        <!-- ideal time annotation -->
+        <line x1="442" y1="20" x2="442" y2="220" stroke="#8b1a1a" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>
+        <text x="448" y="35" font-size="9" fill="#8b1a1a" font-family="'Source Code Pro',monospace">t* = 45 s</text>
+        <text x="448" y="46" font-size="9" fill="#8b1a1a" font-family="'Source Code Pro',monospace">(optimal)</text>
+
+        <!-- data points QEN-3 -->
+        <circle cx="194" cy="165" r="4" fill="white" stroke="#8b1a1a" stroke-width="1.5"/>
+        <circle cx="318" cy="140" r="4" fill="white" stroke="#8b1a1a" stroke-width="1.5"/>
+        <circle cx="442" cy="70"  r="5" fill="#8b1a1a" stroke="white" stroke-width="1.5"/>
+        <circle cx="566" cy="68"  r="4" fill="white" stroke="#8b1a1a" stroke-width="1.5"/>
+
+        <!-- error bars at 45s -->
+        <line x1="442" y1="66" x2="442" y2="74" stroke="#8b1a1a" stroke-width="1.5"/>
+        <line x1="438" y1="66" x2="446" y2="66" stroke="#8b1a1a" stroke-width="1.5"/>
+        <line x1="438" y1="74" x2="446" y2="74" stroke="#8b1a1a" stroke-width="1.5"/>
+
+        <!-- legend -->
+        <line x1="84" y1="36" x2="108" y2="36" stroke="#8b1a1a" stroke-width="2.5"/><text x="113" y="40" font-size="9" fill="#333" font-family="'Source Code Pro',monospace">QEN-3 (n=412)</text>
+        <line x1="84" y1="53" x2="108" y2="53" stroke="#1a3a6b" stroke-width="1.8" stroke-dasharray="7,4"/><text x="113" y="57" font-size="9" fill="#333" font-family="'Source Code Pro',monospace">QEN-2 (n=187)</text>
+        <line x1="200" y1="36" x2="224" y2="36" stroke="#1a6b2a" stroke-width="1.5" stroke-dasharray="3,5"/><text x="229" y="40" font-size="9" fill="#333" font-family="'Source Code Pro',monospace">QEN-1 (n=89)</text>
+        <line x1="200" y1="53" x2="224" y2="53" stroke="#999" stroke-width="1.2" stroke-dasharray="5,5"/><text x="229" y="57" font-size="9" fill="#333" font-family="'Source Code Pro',monospace">Control (no QEN)</text>
+      </svg>
+
+      <div class="fig-caption">
+        <strong>Fig. 3. Expansion factor Φ as a function of microwave exposure time for three QEN generations and non-doped control dough.</strong>
+        QEN-3 achieves Φ = 2.00 ± 0.003 at t* = 45 s (filled circle), with near-complete plateau thereafter. QEN-1 and QEN-2 exhibit sub-optimal asymptotic values of Φ ≈ 1.38 and 1.74, respectively. The control sample shows no measurable expansion (Φ ≈ 1.0 throughout). Error bars shown at t = 45 s (±1σ, n = 412). <em>P &lt; 0.0001 vs. control; two-tailed Student's t-test.</em>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DATA TABLE ══ -->
+  <div class="section-title">4. Summary of Key <span>Experimental Parameters</span></div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Symbol</th>
+        <th>Value (QEN-3)</th>
+        <th>Unit</th>
+        <th>Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Microwave frequency</td><td>f</td><td>2.450</td><td>GHz</td><td>Manufacturer spec.</td></tr>
+      <tr><td>Nodule diameter</td><td>d<sub>QEN</sub></td><td>80 ± 3</td><td>nm</td><td>Cryo-TEM</td></tr>
+      <tr><td>Nodule density</td><td>ρ<sub>QEN</sub></td><td>1.00</td><td>nodule/cm²</td><td>SEM mapping</td></tr>
+      <tr><td>H-bond break energy</td><td>E<sub>break</sub></td><td>4.7</td><td>eV</td><td>XPS spectroscopy</td></tr>
+      <tr><td>Activation temperature</td><td>T<sub>act</sub></td><td>341</td><td>K</td><td>DSC analysis</td></tr>
+      <tr><td>Optimal exposure time</td><td>t*</td><td>45 ± 2</td><td>s</td><td>Empirical (n=412)</td></tr>
+      <tr><td class="highlight">Expansion factor</td><td class="highlight">Φ</td><td class="highlight">2.00 ± 0.003</td><td class="highlight">—</td><td class="highlight">Laser profilometry</td></tr>
+      <tr><td>Topping co-expansion</td><td>Φ<sub>top</sub></td><td>1.98 ± 0.01</td><td>—</td><td>Digital calipers</td></tr>
+      <tr><td>Reversibility</td><td>—</td><td>0%</td><td>—</td><td>Thermal cycling</td></tr>
+    </tbody>
+  </table>
+  <p class="body-text" style="margin-top:8px;">
+    <strong>Note:</strong> All experiments were conducted in triplicate using a standard 800 W domestic microwave oven (Panasonic NN-CD87KS). The Lyon incident of 2043 (involving a 1200 W unit and 90 s exposure) is excluded from the dataset pending ongoing investigation by the ZIAMG Safety Board and the French Ministry of Apartments.
+  </p>
+
+
+  <!-- ══ REFERENCES ══ -->
+  <div class="references">
+    <h4>References</h4>
+    [1] Krüger V., Benedetti A. (2041). "Quantum Expansion Nodule Synthesis via Sol-Gel Gluten Doping." <i>J. Appl. Mol. Gastro.</i> 11(2), 88–104.<br/>
+    [2] Okonkwo L. T. et al. (2042). "Cryo-Electron Tomography of QEN-1 and QEN-2 Lattices in Hydrated Dough Matrices." <i>Nature FoodMatter</i> 6, 317–329.<br/>
+    [3] Marchand F. (2043). "The Lyon Incident: Lessons in Microwave Power Calibration." <i>ZIAMG Internal Safety Report</i> ISR-2043-04. [Partially redacted]<br/>
+    [4] Benedetti A., Krüger V. (2044). "Isotropic vs. Anisotropic QEN Activation: Why the Pepperoni Also Expands." <i>J. Appl. Mol. Gastro.</i> 14(1), 12–19.<br/>
+    [5] Anonymous ("Doughy Pete") (2015). "Laboratory Notebook Entry, October 14." MIT Archives. [Footnote, page 94].<br/>
+  </div>
+
+  <div class="page-footer">
+    Krüger et al. · J. Appl. Mol. Gastro. Vol. 14 (3) · 2044 &nbsp;·&nbsp; p. 7 of 23
+  </div>
+
+</div><!-- /paper -->
+</body>
+</html>
